@@ -1,0 +1,28 @@
+version: "3"
+services:
+  server:
+    build: .
+    ports:
+      - "3001:3001"
+    environment:
+      - EXTERNAL_PORT=3001
+      - PGDATABASE=db
+      - PGUSER=momo
+      - PGPASSWORD=12345
+      - PGHOST=db
+    depends_on:
+      - db
+
+  db:
+    image: "postgres"
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: momo
+      POSTGRES_PASSWORD: 12345
+      POSTGRES_DB: db
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+volumes:
+  db_data: {}
