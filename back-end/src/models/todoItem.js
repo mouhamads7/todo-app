@@ -13,6 +13,12 @@ const todoTable = db.define("todoItems", {
     type: Sequelize.STRING,
     allowNull: false,
   },
+  state: {
+    type: Sequelize.STRING,
+    allowNull: false,
+    defaultValue: "active",
+    isIn: [["active", "completed"]],
+  },
 });
 
 module.exports = todoTable;
