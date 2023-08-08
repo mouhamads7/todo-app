@@ -3,23 +3,19 @@ import { TodoElementTypeWithId } from "./Type";
 import crossIcon from "./ressources/icon-cross.svg";
 import checkIcon from "./ressources/icon-check.svg";
 import classNames from "classnames";
-// import { useState } from "react";
-
 type props = {
   todoElement: TodoElementTypeWithId;
-  todoElements: TodoElementTypeWithId[];
-  setTodoElements: (list: TodoElementTypeWithId[]) => void;
   rerenderingCount: number;
   setReRenderringCount: (x: number) => void;
 };
 
 export const TodoElement = ({
   todoElement,
-  //   todoElements,
-  //   setTodoElements,
   rerenderingCount,
   setReRenderringCount,
 }: props) => {
+  const theme = localStorage.getItem("theme");
+
   const deleteElement = () => {
     axios
       .delete(`/todoItem/${todoElement.id}`)
@@ -37,12 +33,20 @@ export const TodoElement = ({
   };
 
   return (
-    <div className="py-4 px-4 border-b border-slate-400 cursor-pointer flex justify-between">
+    <div
+      className={classNames(
+        "py-4 px-4 border-b border-slate-400 cursor-pointer flex justify-between",
+        {
+          "text-white": theme === "dark",
+          "bg-slate-700": theme === "dark",
+        }
+      )}
+    >
       <div className="flex group" onClick={checkOrUncheckElement}>
         <img
           src={checkIcon}
           className={classNames(
-            "mt-1 px-1 py-1 h-5 w-5 border border-slate-400 rounded-full mr-4 group-hover:border-check-bg2",
+            "mt-1 px-1 py-1 h-5 w-5 border bg-white border-slate-400 rounded-full mr-4 hover-hover:group-hover:border-check-bg2",
             {
               ["bg-gradient-to-b from-check-bg1 to-check-bg2"]:
                 todoElement.state === "completed",
@@ -50,7 +54,7 @@ export const TodoElement = ({
           )}
         ></img>
         <div
-          className={classNames("group-hover:font-bold", {
+          className={classNames("hover-hover:group-hover:font-bold", {
             "line-through text-slate-400": todoElement.state === "completed",
           })}
         >

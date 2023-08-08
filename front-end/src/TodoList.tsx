@@ -6,19 +6,18 @@ import axios from "axios";
 
 type props = {
   todoElements: TodoElementTypeWithId[];
-  setTodoElements: (list: TodoElementTypeWithId[]) => void;
   rerenderingCount: number;
   setReRenderringCount: (x: number) => void;
 };
 
 export const TodoList = ({
   todoElements,
-  setTodoElements,
   rerenderingCount,
   setReRenderringCount,
 }: props) => {
   const [listType, setListType] = useState<string>("all");
   const [leftItem, setLeftItem] = useState<TodoElementTypeWithId[]>();
+  const theme = localStorage.getItem("theme");
   useEffect(() => {
     const list = todoElements.filter((element) =>
       element.state === "active" ? true : false
@@ -34,7 +33,7 @@ export const TodoList = ({
   };
 
   return (
-    <div className="bg-white rounded drop-shadow-lg">
+    <div className={"bg-white rounded drop-shadow-lg"}>
       <div>
         {todoElements &&
           todoElements.length > 0 &&
@@ -44,41 +43,44 @@ export const TodoList = ({
                 <TodoElement
                   key={index}
                   todoElement={element}
-                  todoElements={todoElements}
-                  setTodoElements={setTodoElements}
                   rerenderingCount={rerenderingCount}
                   setReRenderringCount={setReRenderringCount}
                 ></TodoElement>
               )
           )}
       </div>
-      <div className="py-4 px-2 text-xs font-thin flex justify-between">
+      <div
+        className={classNames(
+          "py-4 px-2 text-xs font-thin flex justify-between",
+          { "text-white": theme === "dark", "bg-slate-700": theme === "dark" }
+        )}
+      >
         <p>{leftItem?.length} items left</p>
         <div className="flex justify-between">
           <button
             type="button"
-            className={`${buttonStyle} pr-3`}
+            className={classNames(`${buttonStyle(listType, "all")} pr-3`)}
             onClick={() => setListType("all")}
           >
             All
           </button>
           <button
             type="button"
-            className={`${buttonStyle} pr-3`}
+            className={classNames(`${buttonStyle(listType, "active")} pr-3`)}
             onClick={() => setListType("active")}
           >
             Active
           </button>
           <button
             type="button"
-            className={buttonStyle}
+            className={classNames(`${buttonStyle(listType, "completed")} pr-3`)}
             onClick={() => setListType("completed")}
           >
             Completed
           </button>
         </div>
         <p
-          className="cursor-pointer hover:font-semibold"
+          className="cursor-pointer hover-hover:hover:font-semibold"
           onClick={clearCompleted}
         >
           Clear Completed
@@ -88,9 +90,7 @@ export const TodoList = ({
   );
 };
 
-const buttonStyle = classNames(
-  "hover:font-semibold",
-  "cursor-pointer",
-  "focus:font-semibold",
-  "focus:text-sky-500"
-);
+const buttonStyle = (listType: string, currentType: string) =>
+  classNames("hover-hover:hover:font-semibold", "cursor-pointer", {
+    "font-semibold text-blue-500": listType === currentType,
+  });

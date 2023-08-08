@@ -7,6 +7,9 @@ export default {
         "check-bg1": "#33CCFF",
         "check-bg2": "#CC66FF",
       },
+      screens: {
+        "hover-hover": { raw: "(hover: hover)" },
+      },
     },
   },
   plugins: [],
