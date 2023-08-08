@@ -1,5 +1,6 @@
 import { Field, Form, Formik } from "formik";
-import logo from "./ressources/bg-desktop-light.jpg";
+import lightModeLogo from "./ressources/bg-desktop-light.jpg";
+import darkModeLogo from "./ressources/bg-desktop-dark.jpg";
 import moonLogo from "./ressources/icon-moon.svg";
 import sunLogo from "./ressources/icon-sun.svg";
 import { TodoList } from "./TodoList";
@@ -50,10 +51,18 @@ export const App = () => {
         "bg-slate-800": theme === "dark",
       })}
     >
-      <img
-        src={logo}
-        className="image w-full object-cover relative h-52 lg:h-56"
-      ></img>
+      {theme === "light" ? (
+        <img
+          src={lightModeLogo}
+          className="image w-full object-cover relative h-52 lg:h-56"
+        ></img>
+      ) : (
+        <img
+          src={darkModeLogo}
+          className="image w-full object-cover relative h-52 lg:h-56"
+        ></img>
+      )}
+
       <div className="absolute top-16 w-full max-w-[42rem] px-8 md:w-[42rem]">
         <div className="text-white flex justify-between">
           <div className="flex font-bold text-3xl">
