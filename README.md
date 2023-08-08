@@ -9,7 +9,8 @@ To launch the backend:
 To launch the frontend:
 
 - cd in the frontend directory
-- Enter the command `npm run dev`
+- Enter the command `npm install`
+- Then `npm run dev`
 
 To see the app:
 
