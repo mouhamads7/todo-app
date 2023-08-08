@@ -1,4 +1,5 @@
 This app is a todolist which has a **light-mode** and a **dark-mode** which can be changed by clicking on the **moon** or sun **icon**.
+The frontend is in **React** and the backend in **Node.js**. I use a postgresql database launched with **docker**.
 
 To launch the backend:
 
