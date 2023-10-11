@@ -1,5 +1,6 @@
 const express = require("express");
 const app = express();
+// require("dotenv").config();
 
 const sequelize = require("./util/database");
 
@@ -19,7 +20,7 @@ app.use("/todoItem", userRoute);
   try {
     await sequelize.sync({ force: false });
     console.log("test");
-    app.listen(process.env.EXTERNAL_PORT || 3001);
+    app.listen(process.env.EXTERNAL_PORT || 3002);
   } catch (error) {
     console.error(error);
   }

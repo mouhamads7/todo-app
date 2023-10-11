@@ -1,4 +1,5 @@
 const Sequelize = require("sequelize");
+// require("dotenv").config();
 
 const seq = new Sequelize(
   process.env.POSTGRES_USER,
@@ -7,6 +8,9 @@ const seq = new Sequelize(
   {
     host: process.env.POSTGRES_HOST,
     dialect: "postgres",
+    define: {
+      timestamps: false,
+    },
   }
 );
 
