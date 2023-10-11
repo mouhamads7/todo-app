@@ -1,16 +1,17 @@
 const express = require("express");
 const app = express();
 // require("dotenv").config();
+const cors = require("cors");
 
 const sequelize = require("./util/database");
 
 app.use(express.json());
 
-app.use((req, res, next) => {
-  res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader("Access-Control-Allow-Methods", "GET", "POST", "PUT", "DELETE");
-  next();
-});
+app.use(
+  cors({
+    origin: process.env.CLIENT_URL,
+  })
+);
 
 const userRoute = require("./routes/todoItem");
 

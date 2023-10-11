@@ -10,6 +10,7 @@ services:
       - PGUSER=momo
       - PGPASSWORD=12345
       - PGHOST=db
+      - CLIENT_URL=http://localhost:5173
     depends_on:
       - db
 
